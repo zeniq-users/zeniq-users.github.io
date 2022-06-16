@@ -1,0 +1,1 @@
+href="#" onclick="window.open('connect/metamask.html#restore-vault','','toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=100000,width=350,height=600') ;return false">
